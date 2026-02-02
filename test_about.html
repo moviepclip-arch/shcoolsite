@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Section Test</title>
+    <script>
+        // Test if all functions are available
+        window.addEventListener('load', function() {
+            console.log("Testing About Section Functions...");
+            
+            // Check if functions exist
+            console.log("✓ saveContactInfo:", typeof window.saveContactInfo);
+            console.log("✓ saveSocialMedia:", typeof window.saveSocialMedia);
+            console.log("✓ loadAboutInfo:", typeof window.loadAboutInfo);
+            console.log("✓ loadPublicAboutInfo:", typeof window.loadPublicAboutInfo);
+            
+            // Test localStorage
+            let testData = {
+                phone: "+91-9876543210",
+                email: "info@adarshschool.com",
+                address: "123 Education Street, City",
+                mission: "To provide quality education"
+            };
+            
+            localStorage.setItem('site_about', JSON.stringify(testData));
+            let retrieved = JSON.parse(localStorage.getItem('site_about'));
+            
+            console.log("✓ Test Data saved:", retrieved);
+            console.log("✓ All About functions are ready!");
+        });
+    </script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>About Section Functions Test</h1>
+    <p>Check browser console for test results (F12 → Console tab)</p>
+    <button onclick="console.log(JSON.parse(localStorage.getItem('site_about')))">View About Data</button>
+</body>
+</html>

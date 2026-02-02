@@ -1,0 +1,57 @@
+/* --- VARIABLES & RESET --- */
+:root {
+    --primary: #003366; /* School Blue */
+    --secondary: #ffcc00; /* Yellow Highlight */
+    --accent: #d9534f; /* Red */
+    --light: #f4f4f4;
+    --dark: #222;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0; padding: 0;
+    background: var(--light);
+    scroll-behavior: smooth;
+}
+
+/* --- HEADER --- */
+.top-bar { background: var(--dark); color: white; padding: 5px 20px; display: flex; justify-content: space-between; font-size: 14px; }
+header { background: white; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.logo-area { display: flex; align-items: center; gap: 15px; }
+.logo-circle { width:60px; height:60px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; }
+.school-name h1 { margin: 0; color: var(--primary); font-size: 24px; }
+
+/* --- NAVIGATION --- */
+nav { background: var(--primary); overflow-x: auto; white-space: nowrap; position: sticky; top: 0; z-index: 1000; }
+nav a { display: inline-block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; }
+nav a:hover { background-color: var(--secondary); color: black; }
+
+/* --- SECTIONS & CARDS --- */
+section { padding: 40px 20px; max-width: 1200px; margin: auto; background: white; margin-bottom: 20px; border-radius: 8px; }
+h2.title { border-left: 5px solid var(--primary); padding-left: 15px; color: var(--primary); margin-bottom: 30px; }
+
+.hero-section {
+    text-align: center;
+    background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.8)), url('https://source.unsplash.com/1200x400/?school');
+    background-size: cover;
+    color: white;
+    padding: 100px 20px;
+}
+
+.service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.service-card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; text-align: center; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.service-card i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
+
+/* --- INPUTS & BUTTONS --- */
+.input-group { margin: 15px 0; text-align: left; }
+.input-group label { font-weight: bold; display: block; margin-bottom: 5px; }
+.input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+
+.btn { background: var(--primary); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; text-decoration: none; display: inline-block; }
+.btn:hover { background: #002244; }
+
+.hidden-result { display: none; margin-top: 20px; border: 2px dashed var(--primary); padding: 15px; background: #eef; }
+.marquee { background: var(--secondary); color: black; font-weight: bold; padding: 8px; }
+
+/* --- FOOTER --- */
+footer { background: var(--dark); color: white; padding: 20px; text-align: center; margin-top: 20px; }

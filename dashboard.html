@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Principal Control Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { display: flex; background: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { width: 260px; background: #002b5b; color: white; height: 100vh; position: fixed; }
+        .sidebar h2 { padding: 20px; text-align: center; background: #001f42; margin: 0; }
+        .sidebar button {
+            width: 100%; border: none; background: none; color: white;
+            padding: 15px 20px; text-align: left; cursor: pointer; font-size: 16px;
+            transition: 0.3s; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar button:hover, .sidebar button.active { background: #ffcc00; color: #000; }
+        .sidebar i { margin-right: 10px; }
+
+        .content { margin-left: 260px; padding: 30px; width: 100%; }
+        .tab-content { display: none; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .active-tab { display: block; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;
+        }
+        .btn-save { background: #28a745; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>PRINCIPAL</h2>
+        <button onclick="openTab(event, 'tab-settings')" class="active"><i class="fas fa-cog"></i> Website Settings</button>
+        <button onclick="openTab(event, 'tab-about')"><i class="fas fa-info-circle"></i> About School</button>
+        <button onclick="openTab(event, 'tab-admissions')"><i class="fas fa-file-alt"></i> Admissions</button>
+        <button onclick="openTab(event, 'tab-students')"><i class="fas fa-user-graduate"></i> Students & Results</button>
+        <button onclick="openTab(event, 'tab-admits')"><i class="fas fa-id-card"></i> Admit Cards</button>
+        <button onclick="openTab(event, 'tab-notices')"><i class="fas fa-bullhorn"></i> School Notices</button>
+        <button onclick="openTab(event, 'tab-gallery')"><i class="fas fa-images"></i> Event Gallery</button>
+        <button onclick="openTab(event, 'tab-books')"><i class="fas fa-book"></i> Book Management</button>
+        <button onclick="openTab(event, 'tab-teachers')"><i class="fas fa-chalkboard-teacher"></i> Staff Updates</button>
+        <a href="index.html" style="display:block; padding:15px 20px; color:white; text-decoration:none; margin-top:50px; background:red; text-align:center;">Logout</a>
+    </div>
+
+    <div class="content">
+        
+        <div id="tab-settings" class="tab-content active-tab">
+            <h3>⚙️ Website Settings</h3>
+            <p>स्कूल का लोगो और वेबसाइट का डिज़ाइन बदलें।</p>
+            
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                <h4>🎨 School Logo</h4>
+                <div class="form-group">
+                    <label>Logo Image URL</label>
+                    <input type="text" id="logo-url" placeholder="https://example.com/logo.png">
+                    <small style="color: gray;">Logo की URL paste करें (PNG, JPG, etc.)</small>
+                </div>
+                <div id="logo-preview" style="margin: 15px 0; text-align: center;">
+                    <p style="color: gray;">Logo Preview यहाँ दिखेगा</p>
+                </div>
+                <button class="btn-save" onclick="saveLogo()">Update Logo</button>
+            </div>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px;">
+                <h4>🖼️ Hero Section Background</h4>
+                <div class="form-group">
+                    <label>Background Image URL</label>
+                    <input type="text" id="bg-url" placeholder="https://example.com/background.jpg">
+                    <small style="color: gray;">Hero Section के लिए background image की URL</small>
+                </div>
+                <div class="form-group">
+                    <label>Heading Text</label>
+                    <input type="text" id="hero-heading" placeholder="E.g. Welcome to Adarsh Public School">
+                </div>
+                <div class="form-group">
+                    <label>Subheading Text</label>
+                    <input type="text" id="hero-subheading" placeholder="E.g. Nurturing Minds, Building Future.">
+                </div>
+                <button class="btn-save" style="background: #007bff;" onclick="saveHeroSettings()">Update Hero Section</button>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                <p><strong>💡 Tip:</strong> आप किसी भी image URL का use कर सकते हो - Google Drive, Imgur, Unsplash, या अपना server।</p>
+            </div>
+        </div>
+
+        <div id="tab-about" class="tab-content">
+            <h3>ℹ️ School Information Management</h3>
+            <p>स्कूल की सभी जानकारी यहाँ update करें।</p>
+            
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <h4>📞 Contact Information</h4>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="about-phone-input" placeholder="+91-9876543210">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="about-email-input" placeholder="info@school.com">
+                </div>
+                <div class="form-group">
+                    <label>Working Hours</label>
+                    <input type="text" id="about-hours-input" placeholder="E.g. Mon-Fri: 8:00 AM - 3:00 PM">
+                </div>
+                <button class="btn-save" onclick="saveContactInfo()">Update Contact Info</button>
+            </div>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <h4>📍 School Location & Details</h4>
+                <div class="form-group">
+                    <label>School Address</label>
+                    <textarea id="about-address-input" rows="3" placeholder="Full address with city, state, zip code"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Principal Name</label>
+                    <input type="text" id="about-principal-input" placeholder="E.g. Mr. Rajesh Kumar">
+                </div>
+                <div class="form-group">
+                    <label>Established Year</label>
+                    <input type="text" id="about-year-input" placeholder="E.g. 1995">
+                </div>
+                <button class="btn-save" onclick="saveLocationInfo()">Update Location Info</button>
+            </div>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <h4>🔗 Social Media Links</h4>
+                <div class="form-group">
+                    <label>Facebook Page URL</label>
+                    <input type="text" id="about-facebook-input" placeholder="https://facebook.com/adarshschool">
+                </div>
+                <div class="form-group">
+                    <label>Twitter Profile URL</label>
+                    <input type="text" id="about-twitter-input" placeholder="https://twitter.com/adarshschool">
+                </div>
+                <div class="form-group">
+                    <label>Instagram Profile URL</label>
+                    <input type="text" id="about-instagram-input" placeholder="https://instagram.com/adarshschool">
+                </div>
+                <div class="form-group">
+                    <label>YouTube Channel URL</label>
+                    <input type="text" id="about-youtube-input" placeholder="https://youtube.com/@adarshschool">
+                </div>
+                <button class="btn-save" onclick="saveSocialMedia()">Update Social Media</button>
+            </div>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <h4>📖 School Mission/Description</h4>
+                <div class="form-group">
+                    <label>Mission Statement</label>
+                    <textarea id="about-mission-input" rows="5" placeholder="Write about school's mission and vision..."></textarea>
+                </div>
+                <button class="btn-save" onclick="saveMissionInfo()">Update Mission</button>
+            </div>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 8px;">
+                <h4>🗺️ Location Map</h4>
+                <div class="form-group">
+                    <label>Google Maps Embed Code</label>
+                    <textarea id="about-map-input" rows="4" placeholder="Paste Google Maps embed iframe src (the long URL inside src=&quot;&quot;)"></textarea>
+                    <small style="color: gray;">
+                        <strong>How to:</strong> Go to Google Maps → Right click on location → Click "Share" → Copy the embed iframe src URL → Paste here
+                    </small>
+                </div>
+                <button class="btn-save" onclick="saveMapInfo()">Update Map</button>
+            </div>
+        </div>
+
+        <div id="tab-admissions" class="tab-content">
+            <h3>📋 Manage Admissions</h3>
+            <p>आवेदकों के admission applications को देखें और manage करें।</p>
+            
+            <div style="margin-bottom: 20px;">
+                <h4>📊 Admission Statistics:</h4>
+                <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; flex: 1; text-align: center;">
+                        <p style="margin: 0; font-size: 12px; color: gray;">Total Applications</p>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1976d2;" id="total-adm">0</p>
+                    </div>
+                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px; flex: 1; text-align: center;">
+                        <p style="margin: 0; font-size: 12px; color: gray;">Pending</p>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #f57c00;" id="pending-adm">0</p>
+                    </div>
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; flex: 1; text-align: center;">
+                        <p style="margin: 0; font-size: 12px; color: gray;">Approved</p>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #388e3c;" id="approved-adm">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4>📝 Applications:</h4>
+            <div id="admin-admissions-view" style="margin-top: 15px;">
+                <p style="color: gray;">Loading applications...</p>
+            </div>
+        </div>
+
+        <div id="tab-students" class="tab-content">
+            <h3>🎓 Update Student Result</h3>
+            <p>यहाँ से आप एग्जाम का डेटा डाल सकते हैं जो स्टूडेंट रोल नंबर से देख पाएंगे।</p>
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" id="std-name" placeholder="E.g. Rahul Kumar">
+            </div>
+            <div class="form-group">
+                <label>Roll Number</label>
+                <input type="text" id="std-roll" placeholder="E.g. 101">
+            </div>
+            <div class="form-group">
+                <label>Class</label>
+                <select id="std-class">
+                    <option value="1">Class 1</option>
+                    <option value="2">Class 2</option>
+                    <option value="3">Class 3</option>
+                    <option value="4">Class 4</option>
+                    <option value="5">Class 5</option>
+                    <option value="6">Class 6</option>
+                    <option value="7">Class 7</option>
+                    <option value="8">Class 8</option>
+                    <option value="9">Class 9</option>
+                    <option value="10">Class 10</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Student Name</label>
+                <input type="text" id="std-name" placeholder="E.g. Rahul Kumar">
+            </div>
+            <div class="form-group">
+                <label>Roll Number</label>
+                <input type="text" id="std-roll" placeholder="E.g. 101">
+            </div>
+            <div class="form-group">
+                <label>Class</label>
+                <select id="std-class">
+                    <option value="1">Class 1</option>
+                    <option value="2">Class 2</option>
+                    <option value="3">Class 3</option>
+                    <option value="4">Class 4</option>
+                    <option value="5">Class 5</option>
+                    <option value="6">Class 6</option>
+                    <option value="7">Class 7</option>
+                    <option value="8">Class 8</option>
+                    <option value="9">Class 9</option>
+                    <option value="10">Class 10</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Year</label>
+                <select id="std-year">
+                    <option value="">-- Select Year --</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Exam Type</label>
+                <select id="std-exam">
+                    <option value="">-- Select Exam --</option>
+                    <option value="Half Yearly">Half Yearly</option>
+                    <option value="Final">Final</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Percentage/Marks</label>
+                <input type="text" id="std-marks" placeholder="E.g. 85%">
+            </div>
+            <button class="btn-save" onclick="uploadResult()">Upload Result Data</button>
+        </div>
+
+        <div id="tab-admits" class="tab-content">
+            <h3>📄 Manage Admit Cards</h3>
+            <p>छात्रों के लिए प्रवेश पत्र बनाएं और प्रबंधित करें।</p>
+            
+            <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h4>➕ Add Admit Card</h4>
+                <div class="form-group">
+                    <label>Student Name</label>
+                    <input type="text" id="admit-name" placeholder="E.g. Rahul Kumar">
+                </div>
+                <div class="form-group">
+                    <label>Roll Number</label>
+                    <input type="text" id="admit-roll" placeholder="E.g. 101">
+                </div>
+                <div class="form-group">
+                    <label>Class</label>
+                    <select id="admit-class">
+                        <option value="">-- Select Class --</option>
+                        <option value="1">Class 1</option>
+                        <option value="2">Class 2</option>
+                        <option value="3">Class 3</option>
+                        <option value="4">Class 4</option>
+                        <option value="5">Class 5</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Year</label>
+                    <select id="admit-year">
+                        <option value="">-- Select Year --</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Exam Type</label>
+                    <select id="admit-exam">
+                        <option value="">-- Select Exam --</option>
+                        <option value="Half Yearly">Half Yearly</option>
+                        <option value="Final">Final</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Exam Date</label>
+                    <input type="date" id="admit-date">
+                </div>
+                <button class="btn-save" style="background: #28a745;" onclick="addAdmitCard()">Add Admit Card</button>
+            </div>
+
+            <h4>📋 Manage Admit Cards:</h4>
+            <div class="form-group">
+                <select id="manage-admits-year" onchange="loadAdmitCardsForYear()" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-right: 10px;">
+                    <option value="">-- Select Year --</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                </select>
+                <select id="manage-admits-exam" onchange="loadAdmitCardsForYear()" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                    <option value="">-- Select Exam --</option>
+                    <option value="Half Yearly">Half Yearly</option>
+                    <option value="Final">Final</option>
+                </select>
+            </div>
+
+            <div id="admin-admits-view" style="margin-top: 15px;">
+                <p style="color: gray;">Select year and exam type to view admit cards</p>
+            </div>
+        </div>
+
+        <div id="tab-notices" class="tab-content">
+            <h3>📢 Update School Notice</h3>
+            <p>यहाँ जो भी लिखेंगे वो होम पेज की चलती पट्टी (Marquee) में दिखेगा।</p>
+            <div class="form-group">
+                <label>Important Announcement</label>
+                <textarea id="new-notice" rows="4" placeholder="Type school update here..."></textarea>
+            </div>
+            <button class="btn-save" onclick="addNotice()">Publish Notice Now</button>
+        </div>
+
+        <div id="tab-books" class="tab-content">
+            <h3>📚 Book Management</h3>
+            <p>किताबों की कीमत और नाम बदलें।</p>
+            
+            <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h4>📖 Add/Edit Book</h4>
+                <div class="form-group">
+                    <label>Select Class</label>
+                    <select id="book-class">
+                        <option value="">-- Select Class --</option>
+                        <option value="1">Class 1</option>
+                        <option value="2">Class 2</option>
+                        <option value="3">Class 3</option>
+                        <option value="4">Class 4</option>
+                        <option value="5">Class 5</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" id="book-subject" placeholder="E.g. English, Hindi, Maths">
+                </div>
+                <div class="form-group">
+                    <label>Book Name</label>
+                    <input type="text" id="book-name" placeholder="E.g. English Reader">
+                </div>
+                <div class="form-group">
+                    <label>Price (₹)</label>
+                    <input type="number" id="book-price" placeholder="E.g. 250">
+                </div>
+                <button class="btn-save" onclick="addBook()">Add Book</button>
+            </div>
+
+            <h4>📋 Manage Books by Class:</h4>
+            <div class="form-group">
+                <select id="manage-class-select" onchange="loadBooksForClass()" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                    <option value="">-- Select Class to View Books --</option>
+                    <option value="1">Class 1</option>
+                    <option value="2">Class 2</option>
+                    <option value="3">Class 3</option>
+                    <option value="4">Class 4</option>
+                    <option value="5">Class 5</option>
+                    <option value="6">Class 6</option>
+                    <option value="7">Class 7</option>
+                    <option value="8">Class 8</option>
+                    <option value="9">Class 9</option>
+                    <option value="10">Class 10</option>
+                </select>
+            </div>
+
+            <div id="admin-books-view" style="margin-top: 15px;">
+                <p style="color: gray;">Select a class to view books</p>
+            </div>
+        </div>
+
+        <div id="tab-gallery" class="tab-content">
+            <h3>📸 Add School Event Photos</h3>
+            <p>स्कूल फंक्शन की फोटो का लिंक यहाँ पेस्ट करें।</p>
+            <div class="form-group">
+                <label>Image URL (Link)</label>
+                <input type="text" id="img-url" placeholder="https://example.com/photo.jpg">
+                <small>Hint: Google Photos या किसी भी इमेज का लिंक यहाँ डालें।</small>
+            </div>
+            <button class="btn-save" style="background:#007bff;" onclick="addPhoto()">Add to Website Gallery</button>
+            
+            <h4 style="margin-top: 30px;">📷 Uploaded Photos:</h4>
+            <div id="admin-gallery-view" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                <p style="color:gray;">Loading photos...</p>
+            </div>
+        </div>
+
+        <div id="tab-teachers" class="tab-content">
+            <h3>👨‍🏫 Staff Management</h3>
+            <p>शिक्षकों की जानकारी अपडेट करें।</p>
+            <div class="form-group">
+                <label>Teacher Name</label>
+                <input type="text" placeholder="Teacher Name">
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" placeholder="Subject">
+            </div>
+            <button class="btn-save" onclick="addTeacher()">Add Teacher</button>
+            
+            <h4 style="margin-top: 30px;">👥 All Teachers:</h4>
+            <div id="admin-teachers-view" style="margin-top: 10px;">
+                <p style="color:gray;">Loading teachers...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
